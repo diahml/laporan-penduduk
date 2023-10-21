@@ -14,7 +14,7 @@
 
         <div class="col-7 mt-3">
           <label for="kabupaten" class="form-label">Nama Kabupaten</label>
-          <input type="text" class="form-control" id="kabupaten" name="kabupaten" value="{{  $kabupaten->kabupaten}}"">
+          <input type="text" class="form-control" id="kabupaten" name="kabupaten" value="{{  $kabupaten->kabupaten}}">
         </div>
         
         <div class="col-7 mt-3">

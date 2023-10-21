@@ -42,27 +42,40 @@
     <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+      $(document).ready( function () {
+          $('#myTable').DataTable();
+      } );
 
-    $(document).ready( function () {
-        $('#myTable').DataTable();
-    } );
+      $(document).ready(function() {
+        var table = $('#myTable').DataTable();
+        var provinsiFilter = $('#provinsi-filter');
 
-      function myFunction() {
-      var input, filter, cards, cardContainer, h5, title, i;
-      input = document.getElementById("myFilter");
-      filter = input.value.toUpperCase();
-      cardContainer = document.getElementById("myItems");
-      cards = cardContainer.getElementsByClassName("tr");
-      for (i = 0; i < cards.length; i++) {
-          title = cards[i].querySelector("td.td");
-          if (title.innerText.toUpperCase().indexOf(filter) > -1) {
-              cards[i].style.display = "";
-          } else {
-  
-              cards[i].style.display = "none";
-          }
-          }
-      }
+        provinsiFilter.on('change', function () {
+            var selectedProvinsi = provinsiFilter.val();
+            table.column(2).search(selectedProvinsi).draw();
+        });
+      });
+
+      $(document).ready( function () {
+          $('#mainTable').DataTable();
+      } );
+
+      $(document).ready(function() {
+        var table = $('#mainTable').DataTable();
+        var kabupatenFilter = $('#kabupaten-filter');
+        var provinsiFilter = $('#provinsi-filter');
+
+        kabupatenFilter.on('change', function () {
+            var selectedKabupaten = kabupatenFilter.val();
+            table.column(5).search(selectedKabupaten).draw();
+        });
+
+        provinsiFilter.on('change', function () {
+              var selectedProvinsi = provinsiFilter.val();
+              table.column(5).search(selectedProvinsi).draw();
+        });
+      });
+
       </script>
   </body>
   

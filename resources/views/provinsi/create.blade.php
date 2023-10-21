@@ -13,7 +13,7 @@
 
         <div class="col-7 mt-3">
           <label for="provinsi" class="form-label">Nama Provinsi</label>
-          <input type="text" class="form-control" id="provinsi" name="provinsi">
+          <input type="text" class="form-control" id="provinsi" name="provinsi" required>
         </div>
 
         <div class="mt-3">

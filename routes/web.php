@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\KabupatenController;
 use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\ExportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,11 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/create/get-kabupaten/{provinsi_id}', [PendudukController::class, 'get-kabupaten'])->middleware('csp');
+Route::get('/{id}/edit', [PendudukController::class, 'edit']);
+Route::delete('/delete/{id}', [PendudukController::class, 'destroy']);
+Route::get('/export', [PendudukController::class, 'exportPenduduk']);
+Route::get('/create/get-kabupaten/{provinsi_id}', [PendudukController::class, 'getKabupaten']);
 Route::resource('/', PendudukController::class);
 
 Route::resource('/provinsi', ProvinsiController::class);
 
 Route::resource('/kabupaten', KabupatenController::class);
+
+//Route Download
+Route::get('/exportpdf',[ExportController::class, 'penduduk']);
 
 

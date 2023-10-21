@@ -4,7 +4,7 @@
 
 <div class="card mt-5 col-8">
     <div class="card-body">
-      <h5 class="card-title">Update Data Provinsi</h5>
+      <h5 class="card-title">Edit Data Provinsi</h5>
 
 <form method="post" action="/provinsi/{{ $provinsi->id }}">
     @method('put')
@@ -23,6 +23,6 @@
       </form>
     </div>
 
-    </div>
+</div>
 
 @endsection

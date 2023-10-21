@@ -16,7 +16,7 @@ class CreateKabupatensTable extends Migration
         Schema::create('kabupatens', function (Blueprint $table) {
             $table->id();
             $table->foreignId('provinsi_id');
-            $table->string('kabupaten')->unique();
+
             $table->timestamps();
         });
     }

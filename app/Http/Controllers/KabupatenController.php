@@ -20,6 +20,7 @@ class KabupatenController extends Controller
             'title' => 'Kabupaten',
             "active"=>"kabupaten",
             "kabupaten"=>kabupaten::all(),
+            "provinsi"=>Provinsi::all(),
         ]);
     }
 

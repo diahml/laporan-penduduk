@@ -2,7 +2,7 @@
 
 return [
 
-    'enabled' => true,
+    'enabled' => false,
     'add_nonce_to_scripts' => true,
     'nonce_key' => 'nonce-abc123',
     'policies' => [

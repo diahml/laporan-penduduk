@@ -4,8 +4,25 @@
     <h1>Data Kabupaten</h1>
     <div class="card">
         <div class="card-body">
+            <a href="/kabupaten/create" class="btn btn-primary mb-3">Tambah</a>
             <div class="tabel">
-                <a href="/kabupaten/create" class="btn btn-primary mb-3">Tambah</a>
+                <table>
+                    <tr>
+                        <td>
+                            <tr>
+                                <td>
+                                    <label for="provinsi-filter">Filter Provinsi:</label>
+                                    <select id="provinsi-filter">
+                                        <option value="">Semua Provinsi</option>
+                                        @foreach ($provinsi as $provinsi)
+                                        <option value="{{ $provinsi->provinsi }}">{{ $provinsi->provinsi }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                            </tr>
+                        </td>
+                    </tr>
+                </table>
                 <table class="table table-bordered datatable" id="myTable">
                     <thead>
                         <tr>

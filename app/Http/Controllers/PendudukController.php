@@ -7,6 +7,7 @@ use App\Http\Requests\StorePendudukRequest;
 use App\Http\Requests\UpdatePendudukRequest;
 use App\Models\Provinsi;
 use App\Models\Kabupaten;
+use Carbon\Carbon;
 
 class PendudukController extends Controller
 {
@@ -21,7 +22,15 @@ class PendudukController extends Controller
             "active"=>"home",
             "title"=>"Home",
             "penduduk"=>Penduduk::all(),
+            "provinsi"=>Provinsi::all(),
+            "kabupaten"=>Kabupaten::all(),
         ]);
+        $penduduk = Penduduk::all();
+        foreach($penduduk as $penduduk){
+            $alamatArray = explode(', ', $penduduk->alamat);
+            $penduduk->kabupaten = $alamatArray[1]; // Misalkan kabupaten berada di indeks pertama
+            $penduduk->provinsi = $alamatArray[2];
+        }
     }
 
     /**
@@ -55,7 +64,29 @@ class PendudukController extends Controller
      */
     public function store(StorePendudukRequest $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama'=>'required|max:255',
+            'nik'=>'required|max:18',
+            'jenis_kelamin'=>'required',
+            'alamat'=>'required|max:255',
+            'kabupaten_id'=>'required',
+         ]);
+         $validatedData['tgl_lahir']=Carbon::parse($request['tgl_lahir'])->format('Y-m-d');
+ 
+        Penduduk::create($validatedData);
+ 
+         return redirect('/');
+    }
+
+    public function exportPenduduk()
+    {
+        return view('export', [
+            'title' => 'Home',
+            'active' => 'home',
+            'penduduk' => Penduduk::all(),
+            'provinsi' => Provinsi::all(),
+            'kabupaten' => Kabupaten::all(),
+        ]);
     }
 
     /**
@@ -75,10 +106,21 @@ class PendudukController extends Controller
      * @param  \App\Models\Penduduk  $penduduk
      * @return \Illuminate\Http\Response
      */
-    public function edit(Penduduk $penduduk)
+
+    public function edit($id)
     {
-        //
+        $penduduk = Penduduk::select('*')->where('id', $id)->get();
+        return view(
+            'edit',
+            [
+                'title' => 'Home',
+                'active' =>'home',
+                'penduduk' => $penduduk,
+                'provinsi'=>Provinsi::all(),
+            ]
+        );
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -87,9 +129,21 @@ class PendudukController extends Controller
      * @param  \App\Models\Penduduk  $penduduk
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePendudukRequest $request, Penduduk $penduduk)
+    public function update(UpdatePendudukRequest $request, $id)
     {
-        //
+        $rules = [
+            'nama'=>'required|max:255',
+            'nik'=>'required|max:18',
+            'jenis_kelamin'=>'required',
+            'alamat'=>'required|max:255',
+            'kabupaten_id'=>'required',
+        ];
+
+        $validatedData = $request->validate($rules);
+        Penduduk::where('id', $id)
+            ->update($validatedData);
+
+        return redirect('/');
     }
 
     /**
@@ -98,8 +152,11 @@ class PendudukController extends Controller
      * @param  \App\Models\Penduduk  $penduduk
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Penduduk $penduduk)
+    public function destroy(Penduduk $penduduk, $id)
     {
-        //
+        
+        Kabupaten::destroy($penduduk->$id);
+
+        return redirect('/');
     }
 }

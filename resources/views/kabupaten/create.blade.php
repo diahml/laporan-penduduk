@@ -13,12 +13,12 @@
 
         <div class="col-7 mt-3">
           <label for="kabupaten" class="form-label">Nama Kabupaten</label>
-          <input type="text" class="form-control" id="kabupaten" name="kabupaten">
+          <input type="text" class="form-control" id="kabupaten" name="kabupaten" required>
         </div>
         
         <div class="col-7 mt-3">
-            <label for="provinsi_id" class="form-label">Nama Provinsi</label>
-            <select class="form-select" id="provinsi_id" name="provinsi_id">
+            <label for="provinsi_id" class="form-label">Nama Provinsi</label><br>
+            <select class="form-select" id="provinsi_id" name="provinsi_id" required>
             <option disabled selected value> -- pilih provinsi -- </option>
             @foreach ($provinsi as $provinsi)
             <option value="{{ $provinsi->id }}">{{ $provinsi->provinsi }}</option>

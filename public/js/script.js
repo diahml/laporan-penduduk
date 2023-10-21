@@ -13,7 +13,7 @@ $(document).ready(function () {
                     $('#kabupaten_id').empty();
                     $('#kabupaten_id').append('<option disabled selected value> -- pilih kabupaten -- </option>');
                     $.each(data, function (key, value) {
-                        $('#kabupaten_id').append('<option value="' + key + '">' + value + '</option>');
+                        $('#kabupaten_id').append('<option value="' + value.id + '">' + value.kabupaten + '</option>');
                     });
                 }
             });
